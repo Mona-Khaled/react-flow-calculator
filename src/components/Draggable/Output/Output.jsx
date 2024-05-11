@@ -1,8 +1,8 @@
-import { useCallback, useContext } from "react";
+import { useContext } from "react";
 import { Handle, Position } from "reactflow";
 import { PiUploadFill } from "react-icons/pi";
-import "./Output.css";
 import MyContext from "../../../Context";
+import "../index.css";
 const handleStyle = { left: 10 };
 
 function Output({ data, isConnectable }) {
