@@ -1,0 +1,99 @@
+.sidebar {
+  background-color: #1e272e;
+  /* background-color: #f0f2f5;  */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 20%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Remove default margin */
+  margin: 0;
+  padding-right: 1rem;
+  padding-top: 2rem;
+}
+
+.hamburger-icon {
+  position: absolute;
+  margin-left: 150px; /* Push the icon to the right edge */
+}
+
+@media (min-width: 1610px) {
+  .hamburger-icon {
+    /* Styles for wider screens */
+    margin-left: 200px;
+  }
+}
+
+.sidebar a {
+  color: white; /* Text color for links */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.sidebar a:hover {
+  color: #8441a0; /* Blue hover color */
+  /* font-weight: bold; */
+}
+
+.sidebar ul {
+  padding-left: 5%;
+}
+
+.sidebar li {
+  list-style-type: none !important;
+  margin-bottom: 1rem;
+  margin-left: 0;
+}
+
+.sidebar .logo {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem; /* Space after logo */
+}
+
+.sidebar .logo img {
+  width: 3rem; /* Adjust logo size */
+  height: 2.2rem; /* Adjust logo size */
+  margin-right: 0.1rem; /* Space between logo and text */
+}
+
+.sidebar .logo h1 {
+  font-size: 1.2rem; /* Adjust logo text size */
+  font-weight: bolder;
+  margin: 0; /* Remove default margin */
+}
+
+.sidebar .item-group {
+  margin-bottom: 1rem; /* Space between groups */
+  padding-bottom: 6rem; /* Space between groups */
+}
+
+.sidebar .item {
+  display: flex;
+  align-items: center;
+  position: inherit;
+  /* width: 100%; */
+  padding: 1rem 1rem; /* Adjust item padding */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Indicate hover for clicks */
+  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.sidebar .item:hover {
+  background-color: #ede7f6; /* Light purple hover background */
+}
+
+.sidebar .item svg,
+.sidebar .item h3 {
+  margin-right: 1rem; /* Space between icon/text */
+}
+
+.sidebar .item.dark {
+  color: #fff; /* White text for dark label */
+}
+
+.item-content {
+  display: flex; /* Make the content wrapper a flexbox container */
+  flex-grow: 1; /* Allow the label to grow within available space */
+}
