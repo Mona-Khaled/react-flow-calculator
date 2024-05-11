@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import { Handle, Position } from "reactflow";
 import { PiUploadFill } from "react-icons/pi";
 import "./Output.css";
@@ -6,9 +6,7 @@ import MyContext from "../../../Context";
 const handleStyle = { left: 10 };
 
 function Output({ data, isConnectable }) {
-  const { nodes, setNodes, edges, setEdges, nodeIdx } = useContext(MyContext);
-
-  const onChange = useCallback((evt) => {}, []);
+  const { nodes } = useContext(MyContext);
 
   return (
     <div className="text-updater-node">
@@ -27,7 +25,6 @@ function Output({ data, isConnectable }) {
           name="text"
           disabled
           value={nodes.find((node) => node.id === data.label).value || 0}
-          // onChange={onChange}
           className="nodrag"
           style={{
             backgroundColor: "#f5f5f5",

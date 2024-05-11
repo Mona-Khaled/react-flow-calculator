@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Handle, Position } from "reactflow";
 import { FcMultipleInputs } from "react-icons/fc";
-import "./Input.css";
 import MyContext from "../../../Context";
 
 const handleStyle = { left: 10 };

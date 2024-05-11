@@ -1,15 +1,10 @@
-import { useCallback, useContext } from "react";
 import { Handle, Position } from "reactflow";
 import { FaCircleMinus } from "react-icons/fa6";
 
 import "./index.css";
-import MyContext from "../../../Context";
 const handleStyle = { left: 10 };
 
 function Subtract({ data, isConnectable }) {
-  const { tab, setTab } = useContext(MyContext);
-  const onChange = useCallback((evt) => {}, []);
-
   return (
     <div className="operator-node">
       <div className="card-header">

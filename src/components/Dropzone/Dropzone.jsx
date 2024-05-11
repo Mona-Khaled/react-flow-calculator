@@ -1,17 +1,13 @@
 import ReactFlow, {
   Background,
   Controls,
-  useReactFlow,
   applyEdgeChanges,
   applyNodeChanges,
   addEdge,
-  ReactFlowProvider,
 } from "reactflow";
-import { useState, useCallback, useEffect, useContext } from "react";
+import { useCallback, useEffect, useContext } from "react";
 import Input from "../Draggable/Input/Input.jsx";
 import Output from "../Draggable/Output/Output.jsx";
-import { useFlowStore } from "../../store.js";
-import { FlowView } from "react-flow-renderer";
 import Add from "../Draggable/Operator/Add.jsx";
 import Subtract from "../Draggable/Operator/Subtract.jsx";
 import Multiply from "../Draggable/Operator/Multiply.jsx";
@@ -36,7 +32,6 @@ const Dropzone = ({ dropPosition }) => {
   useEffect(() => {
     if (edges.length > 0) {
       const groupedEdges = groupSharedTargetEdges(edges);
-      console.log("🚀 ~ useEffect ~ groupedEdges:", groupedEdges);
       const result = calculate(groupedEdges, nodes);
       assignResultToOutput(result, nodes, edges, setNodes);
     }
@@ -82,9 +77,6 @@ const Dropzone = ({ dropPosition }) => {
 
   return (
     <div style={{ height: "initial", width: "-webkit-fill-available" }}>
-      {/* <ReactFlowProvider value={reactFlowInstance}> */}
-      {/* <FlowView reactFlowInstance={reactFlowInstance} /> */}
-
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
@@ -95,20 +87,11 @@ const Dropzone = ({ dropPosition }) => {
         // fitView
         connectionLineType="simplebezier"
         edgesUpdatable={true}
-        // translateExtent={[
-        //   [40, 40],
-        //   [40, 40],
-        // ]}
-        // nodeExtent={[
-        //   [600, 600],
-        //   [600, 600],
-        // ]}
         // style={rfStyle}
       >
         <Background />
         <Controls />
       </ReactFlow>
-      {/* </ReactFlowProvider> */}
     </div>
   );
 };
