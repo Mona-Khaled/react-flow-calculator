@@ -71,9 +71,7 @@ export const calculate = (groupedEdges, nodes) => {
   let res = {};
   for (const key in groupedEdges) {
     const targetNode = nodes.find((node) => node.id === key);
-    console.log("🚀 ~ calculate ~ targetNode:", targetNode);
     const groupedObjects = groupedEdges[key];
-    console.log("🚀 ~ calculate ~ groupedObjects:", groupedObjects);
     let aggregatedValue;
     if (targetNode.type === "Add") {
       aggregatedValue = add(groupedObjects, nodes);
@@ -83,25 +81,19 @@ export const calculate = (groupedEdges, nodes) => {
       aggregatedValue = multiply(groupedObjects, nodes);
     } else if (targetNode.type === "Divide") {
       aggregatedValue = divide(groupedObjects, nodes);
-    } else if (targetNode.type === "Output") {
-      aggregatedValue = add(groupedObjects, nodes);
-      console.log("🚀 ~ calculate ~ aggregatedValue:", aggregatedValue);
-      // should sum all the incoming values since they are inputs that are connected directly to output
     }
     res[key] = aggregatedValue;
   }
   return res;
 };
-// TODO WE NEED TO ASSIGN THE VALUE COMING FROM INPUT/INPUTS DIRECTLY TO THE CONNECTED OUTPUT
+
 export const assignResultToOutput = (result, nodes, edges, setNodes) => {
-  console.log("🚀 ~ assignResultToOutput ~ result:", result);
   for (const key in result) {
-    const operatorOutputEdge = edges.find((edge) => edge.source === key); // or input output edge
+    const operatorOutputEdge = edges.find((edge) => edge.source === key);
     const outputNode = nodes.find(
       (node) => node.id === operatorOutputEdge?.target
     );
     if (outputNode) {
-      console.log("🚀 ~ assignResultToOutput ~ outputNode:", outputNode);
       setNodes((nodes) =>
         nodes.map((node) =>
           node.id === outputNode.id ? { ...node, value: result[key] } : node

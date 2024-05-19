@@ -21,45 +21,24 @@ import {
 } from "../utils/calculatorLogic.js";
 import "./index.css";
 
-// we define the nodeTypes outside of the component to prevent re-renderings
-// you could also use useMemo inside the component
 const nodeTypes = { Input, Output, Add, Subtract, Multiply, Divide };
 
 const Dropzone = ({ dropPosition }) => {
-  const { tab, nodes, setNodes, edges, setEdges, nodeIdx } =
-    useContext(MyContext);
-
-  useEffect(() => {
-    if (edges.length > 0) {
-      const groupedEdges = groupSharedTargetEdges(edges);
-      const result = calculate(groupedEdges, nodes);
-      assignResultToOutput(result, nodes, edges, setNodes);
-    }
-  }, [edges]); // ////////////////// TODO 🚨 WE SHOULD LISTEN TO NODES HERE AS WELL BUT CAUSING RERENDERING TOO MUCH !!
+  const { tab, nodes, setNodes, edges, setEdges } = useContext(MyContext);
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
     []
   );
+
   const onEdgesChange = useCallback((changes) => {
     setEdges((eds) => applyEdgeChanges(changes, eds));
   }, []);
-  // connecting nodes manually
+
   const onConnect = useCallback((params) => {
-    // prevent connecting 2 inputs
-    // if (nodes.length > 0) {
-    //   const nodesToConnect = nodes.filter(
-    //     (node) => node.id === params.target || node.id === params.source
-    //   );
-    //   if ((nodesToConnect[0].type === nodesToConnect[1].type) === "Input") {
-    //     return;
-    //   } else {
-    //     setEdges((eds) => addEdge(params, eds));
-    //   }
-    // } else {
     setEdges((eds) => addEdge(params, eds));
-    // }
   }, []);
+
   useEffect(() => {
     if (tab) {
       setNodes((nodes) => [
@@ -67,16 +46,21 @@ const Dropzone = ({ dropPosition }) => {
         {
           id: `node-${nodes.length + 1}`,
           type: tab,
-          targetPosition: "top",
           position: { x: dropPosition.x - 350, y: dropPosition.y },
           data: { label: `node-${nodes.length + 1}` },
         },
       ]);
     }
-  }, [tab, nodeIdx, dropPosition]);
+  }, [tab, dropPosition]);
+
+  useEffect(() => {
+    const groupedEdges = groupSharedTargetEdges(edges);
+    const result = calculate(groupedEdges, nodes);
+    assignResultToOutput(result, nodes, edges, setNodes);
+  }, [edges]);
 
   return (
-    <div style={{ height: "initial", width: "-webkit-fill-available" }}>
+    <div style={{ width: "100%" }}>
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
@@ -86,8 +70,6 @@ const Dropzone = ({ dropPosition }) => {
         nodeTypes={nodeTypes}
         // fitView
         connectionLineType="simplebezier"
-        edgesUpdatable={true}
-        // style={rfStyle}
       >
         <Background />
         <Controls />
